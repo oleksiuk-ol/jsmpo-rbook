@@ -2,10 +2,10 @@ import React from "react";
 import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 
-function UserProfile() {
+function CreateRecipe() {
   const { id } = useParams();
 
-  return <Box>{`UserProfile ${id}`}</Box>;
+  return <Box>{`recipe ${id}`}</Box>;
 }
 
-export default UserProfile;
+export default CreateRecipe;
