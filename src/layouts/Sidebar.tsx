@@ -35,9 +35,7 @@ function Sidebar(this: any) {
           <Button component={Link} to={"/create"} color="inherit">
             Create
           </Button>
-          <Button component={Link} to={"/userProfile/1"} color="inherit">
-            Log out
-          </Button>
+          <Button color="inherit">Log out</Button>
         </Box>
       </Drawer>
       <Button onClick={handleClickOpen} color="inherit">
