@@ -16,7 +16,7 @@ function Sidebar(this: any) {
   return (
     <Box display="flex">
       <Drawer anchor="right" open={open} variant="persistent">
-        <Box width="250px" display="flex" flexDirection="column">
+        <Box width="20vw" display="flex" flexDirection="column">
           <Box
             position="sticky"
             top="0px"
@@ -32,12 +32,7 @@ function Sidebar(this: any) {
           <Button component={Link} to={"/userProfile/1"} color="inherit">
             Profile
           </Button>
-          <Button
-            component={Link}
-            to={"/create"}
-            color="inherit"
-            onClick={handleClickClose}
-          >
+          <Button component={Link} to={"/create"} color="inherit">
             Create
           </Button>
           <Button component={Link} to={"/userProfile/1"} color="inherit">

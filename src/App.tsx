@@ -5,7 +5,6 @@ import Home from "pages/Home";
 import RecipePage from "pages/RecipePage";
 import Header from "layouts/Header";
 import Footer from "layouts/Footer";
-import Sidebar from "layouts/Sidebar";
 import UserProfile from "pages/UserProfile";
 import { Box } from "@mui/material";
 import CreateRecipe from "pages/CreateRecipe";
