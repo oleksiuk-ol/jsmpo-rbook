@@ -12,8 +12,8 @@ const LoginForm: React.FC = () => {
       <Typography textAlign="center" variant="h5">
         Log in
       </Typography>
-      <TextField label="email" variant="standard" />
-      <TextField label="password" type="password" variant="standard" />
+      <TextField label="Email" variant="standard" />
+      <TextField label="Password" type="password" variant="standard" />
       <Button variant="contained">Log in</Button>
     </Box>
   );
