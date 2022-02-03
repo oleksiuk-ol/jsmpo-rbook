@@ -3,7 +3,7 @@ import { Toolbar, AppBar } from "@mui/material";
 import Sidebar from "./Sidebar";
 import HeaderNav from "./HeaderNav";
 
-function Header() {
+const Header: React.FC = () => {
   return (
     <AppBar position="static">
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -12,6 +12,6 @@ function Header() {
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 export default Header;

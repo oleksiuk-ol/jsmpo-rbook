@@ -7,7 +7,7 @@ import UserProfile from "pages/UserProfile";
 import CreateRecipe from "pages/CreateRecipe";
 import Layout from "layouts";
 
-function App() {
+const App: React.FC = () => {
   return (
     <Layout>
       <Routes>
@@ -18,6 +18,6 @@ function App() {
       </Routes>
     </Layout>
   );
-}
+};
 
 export default App;

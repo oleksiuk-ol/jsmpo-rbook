@@ -2,7 +2,7 @@ import { Box, Button, Drawer } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Sidebar(this: any) {
+const Sidebar: React.FC = () => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -43,6 +43,6 @@ function Sidebar(this: any) {
       </Button>
     </Box>
   );
-}
+};
 
 export default Sidebar;

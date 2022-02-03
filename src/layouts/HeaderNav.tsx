@@ -3,7 +3,7 @@ import { Box, Button } from "@mui/material";
 
 import { Link } from "react-router-dom";
 
-function HeaderNav() {
+const HeaderNav: React.FC = () => {
   return (
     <Box display="flex">
       <Button component={Link} to={"/"} color="inherit">
@@ -14,6 +14,6 @@ function HeaderNav() {
       </Button>
     </Box>
   );
-}
+};
 
 export default HeaderNav;
