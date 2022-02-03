@@ -36,6 +36,9 @@ const Sidebar: React.FC = () => {
             Create
           </Button>
           <Button color="inherit">Log out</Button>
+          <Button component={Link} to={"/auth"} color="inherit">
+            Log in
+          </Button>
         </Box>
       </Drawer>
       <Button onClick={handleClickOpen} color="inherit">

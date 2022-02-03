@@ -7,7 +7,12 @@ const Layout: React.FC = ({ children }) => {
   return (
     <Box display="flex" flexDirection="column" height="100vh">
       <Header />
-      <Box height="100vh" display="flex">
+      <Box
+        height="100vh"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
         {children}
       </Box>
       <Footer />

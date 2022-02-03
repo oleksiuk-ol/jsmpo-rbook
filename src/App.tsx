@@ -6,6 +6,7 @@ import RecipePage from "pages/RecipePage";
 import UserProfile from "pages/UserProfile";
 import CreateRecipe from "pages/CreateRecipe";
 import Layout from "layouts";
+import Authorization from "pages/Authorization";
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
         <Route path="recipe/:id" element={<RecipePage />} />
         <Route path="userProfile/:id" element={<UserProfile />} />
         <Route path="create" element={<CreateRecipe />} />
+        <Route path="auth" element={<Authorization />} />
       </Routes>
     </Layout>
   );
