@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "App.css";
+import { Routes, Route } from "react-router-dom";
+import Home from "pages/Home";
+import RecipePage from "pages/RecipePage";
+import Header from "layouts/Header";
+import Footer from "layouts/Footer";
+import UserProfile from "pages/UserProfile";
+import { Box } from "@mui/material";
+import CreateRecipe from "pages/CreateRecipe";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box display="flex" flexDirection="column" height="100vh">
+      <Header />
+      <Box height="100vh" display="flex">
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="recipe/:id" element={<RecipePage />} />
+          <Route path="userProfile/:id" element={<UserProfile />} />
+          <Route path="create" element={<CreateRecipe />} />
+        </Routes>
+      </Box>
+      <Footer />
+    </Box>
   );
 }
 
