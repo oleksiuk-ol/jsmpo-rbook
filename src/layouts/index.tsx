@@ -4,9 +4,12 @@ import Header from "./Header";
 import { Box } from "@mui/material";
 
 const Layout: React.FC = ({ children }) => {
+  const userData = {
+    email: "test@mail.com",
+  };
   return (
     <Box display="flex" flexDirection="column" height="100vh">
-      <Header />
+      <Header userData={userData} />
       <Box
         height="100vh"
         display="flex"

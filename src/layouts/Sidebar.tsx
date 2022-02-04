@@ -2,7 +2,13 @@ import { Box, Button, Drawer } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Sidebar: React.FC = () => {
+type SidebarProps = {
+  userData: {
+    email?: string;
+  };
+};
+
+const Sidebar: React.FC<SidebarProps> = ({ userData }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -11,6 +17,12 @@ const Sidebar: React.FC = () => {
 
   const handleClickClose = () => {
     setOpen(false);
+  };
+
+  const conditionalProps = {
+    ...(userData?.email
+      ? { onClick: handleClickOpen }
+      : { component: Link, to: "/auth" }),
   };
 
   return (
@@ -35,14 +47,14 @@ const Sidebar: React.FC = () => {
           <Button component={Link} to={"/create"} color="inherit">
             Create
           </Button>
-          <Button color="inherit">Log out</Button>
           <Button component={Link} to={"/auth"} color="inherit">
-            Log in
+            Log out
           </Button>
         </Box>
       </Drawer>
-      <Button onClick={handleClickOpen} color="inherit">
-        Open
+
+      <Button {...conditionalProps} color="inherit">
+        {userData?.email ? userData!.email : "Log in"}
       </Button>
     </Box>
   );
