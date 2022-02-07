@@ -1,12 +1,12 @@
 import React from "react";
 import { Box } from "@mui/material";
 
-function Footer() {
+const Footer: React.FC = () => {
   return (
     <Box padding="15px" bgcolor="#c2eafc">
       Footer
     </Box>
   );
-}
+};
 
 export default Footer;
