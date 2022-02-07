@@ -19,11 +19,9 @@ const Sidebar: React.FC<SidebarProps> = ({ userData }) => {
     setOpen(false);
   };
 
-  const conditionalProps = {
-    ...(userData?.email
-      ? { onClick: handleClickOpen }
-      : { component: Link, to: "/auth" }),
-  };
+  const conditionalProps = userData?.email
+    ? { onClick: handleClickOpen }
+    : { component: Link, to: "/auth" };
 
   return (
     <Box display="flex">
@@ -54,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userData }) => {
       </Drawer>
 
       <Button {...conditionalProps} color="inherit">
-        {userData?.email ? userData!.email : "Log in"}
+        {userData?.email ?? "Log In"}
       </Button>
     </Box>
   );

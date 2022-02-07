@@ -11,9 +11,7 @@ import {
 const AuthForm: React.FC = () => {
   const [isNew, setIsNew] = React.useState(false);
 
-  const handleChange = (event: {
-    target: { checked: boolean | ((prevState: boolean) => boolean) };
-  }) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsNew(event.target.checked);
   };
 
