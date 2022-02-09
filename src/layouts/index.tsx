@@ -2,11 +2,12 @@ import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import { Box } from "@mui/material";
+import { useSelector } from "react-redux";
+import { userSelector } from "redux/selectors";
 
 const Layout: React.FC = ({ children }) => {
-  const userData = {
-    email: "test@mail.com",
-  };
+  const userData = useSelector(userSelector);
+
   return (
     <Box display="flex" flexDirection="column" height="100vh">
       <Header userData={userData} />
