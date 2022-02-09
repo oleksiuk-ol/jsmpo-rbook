@@ -11,6 +11,11 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "redux/actions/userLogin";
 
+type UserCreds = {
+  email: string;
+  password: string;
+};
+
 const AuthForm: React.FC = () => {
   const [isNew, setIsNew] = React.useState(false);
   const dispatch = useDispatch();
@@ -19,22 +24,24 @@ const AuthForm: React.FC = () => {
   };
 
   const handleClickLogin = () => {
-    dispatch(userLogin(user));
+    dispatch(userLogin(userCreds));
   };
 
   const conditionalProps = isNew
     ? {} //Sign up props will be here
     : { onClick: handleClickLogin, component: Link, to: "/" };
 
-  const [user, setUser] = useState({
+  const [userCreds, setUserCreds] = useState({
     email: "",
     password: "",
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const userObj = { ...user };
-    userObj[event.target.name as keyof typeof userObj] = event.target.value;
-    setUser(userObj);
+    const credField = event.target.name as keyof UserCreds;
+    setUserCreds({
+      ...userCreds,
+      [credField]: event.target.value,
+    });
   };
 
   return (
