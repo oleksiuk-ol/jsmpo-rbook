@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "redux/actions/userLogin";
+import { kStringMaxLength } from "buffer";
 
 type UserCreds = {
   email: string;
@@ -27,11 +28,7 @@ const AuthForm: React.FC = () => {
     dispatch(userLogin(userCreds));
   };
 
-  const conditionalProps = isNew
-    ? {} //Sign up props will be here
-    : { onClick: handleClickLogin, component: Link, to: "/" };
-
-  const [userCreds, setUserCreds] = useState({
+  const [userCreds, setUserCreds] = useState<UserCreds>({
     email: "",
     password: "",
   });
@@ -74,7 +71,12 @@ const AuthForm: React.FC = () => {
           variant="standard"
         />
       )}
-      <Button variant="contained" {...conditionalProps}>
+      <Button
+        variant="contained"
+        onClick={handleClickLogin}
+        component={Link}
+        to="/"
+      >
         {isNew ? "Log in" : "Sign up"}
       </Button>
       <FormControlLabel
