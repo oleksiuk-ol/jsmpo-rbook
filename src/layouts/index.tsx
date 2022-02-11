@@ -9,8 +9,6 @@ import { authSuccess, getUserEmail } from "redux/actions/auth";
 const Layout: React.FC = ({ children }) => {
   const userData = useSelector(userSelector);
   const dispatch = useDispatch();
-  // const dispatch = useDispatch();
-  // // inside useEffect dispatch(authSuccess({email}))
 
   useEffect(() => {
     dispatch(getUserEmail);
