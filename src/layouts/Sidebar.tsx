@@ -1,6 +1,7 @@
 import { Box, Button, Drawer } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import { signOut } from "redux/actions/auth";
 
 type SidebarProps = {
   userData: {
@@ -45,7 +46,12 @@ const Sidebar: React.FC<SidebarProps> = ({ userData }) => {
           <Button component={Link} to={"/create"} color="inherit">
             Create
           </Button>
-          <Button component={Link} to={"/auth"} color="inherit">
+          <Button
+            component={Link}
+            to={"/auth"}
+            color="inherit"
+            onClick={signOut}
+          >
             Log out
           </Button>
         </Box>

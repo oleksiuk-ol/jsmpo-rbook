@@ -1,4 +1,5 @@
-import { signIn, getUser } from "services/auth";
+import { useDispatch } from "react-redux";
+import { signIn, getUser, logOut } from "services/auth";
 import { AUTH } from "./constants";
 
 type Credentials = {
@@ -31,4 +32,7 @@ export const getUserEmail = async (dispatch: any) => {
 
 // export const signUp = () => ({});
 
-// export const logOut = () => ({});
+export const signOut = (dispatch: any) => {
+  logOut();
+  dispatch(getUserEmail({}));
+};

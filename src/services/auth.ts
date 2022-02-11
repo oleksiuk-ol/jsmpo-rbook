@@ -2,6 +2,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import "../firebase";
 
@@ -26,7 +27,11 @@ export const signIn = async ({ email, password }: UserCreds) => {
 };
 export const signUp = () => ({});
 
-export const logOut = () => ({});
+export const logOut = () => {
+  signOut(auth)
+    .then(() => {})
+    .catch((error) => {});
+};
 
 export const getUser = () => {
   return new Promise((resolve) => {
