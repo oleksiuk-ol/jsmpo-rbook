@@ -10,12 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "redux/actions/userLogin";
-import { kStringMaxLength } from "buffer";
-
-type UserCreds = {
-  email: string;
-  password: string;
-};
+import { UserCreds } from "services/auth";
 
 const AuthForm: React.FC = () => {
   const [isNew, setIsNew] = React.useState(false);
@@ -40,6 +35,8 @@ const AuthForm: React.FC = () => {
       [credField]: event.target.value,
     });
   };
+
+  const handleFirebaseLogin = () => {};
 
   return (
     <Box
