@@ -1,10 +1,15 @@
-const userReducer = (state = {}, { type, payload }: any) => {
+import { AUTH } from "redux/actions/constants";
+
+const initState = {};
+const userReducer = (state = initState, { type, payload }: any) => {
   switch (type) {
-    case "AUTH_SUCCESS":
+    case AUTH.SUCCESS:
       return {
         ...state,
-        email: payload.email,
+        ...payload,
       };
+    case AUTH.LOGOUT:
+      return initState;
     default:
       return state;
   }

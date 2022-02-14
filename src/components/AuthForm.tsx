@@ -9,13 +9,9 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { userLogin } from "redux/actions/userLogin";
-import { kStringMaxLength } from "buffer";
 
-type UserCreds = {
-  email: string;
-  password: string;
-};
+import { UserCreds } from "services/auth";
+import { userLogin, userRegistration } from "redux/actions/auth";
 
 const AuthForm: React.FC = () => {
   const [isNew, setIsNew] = React.useState(false);
@@ -24,8 +20,12 @@ const AuthForm: React.FC = () => {
     setIsNew(event.target.checked);
   };
 
-  const handleClickLogin = () => {
-    dispatch(userLogin(userCreds));
+  const handleClickAuth = () => {
+    if (isNew) {
+      dispatch(userRegistration(userCreds));
+    } else {
+      dispatch(userLogin(userCreds));
+    }
   };
 
   const [userCreds, setUserCreds] = useState<UserCreds>({
@@ -73,7 +73,7 @@ const AuthForm: React.FC = () => {
       )}
       <Button
         variant="contained"
-        onClick={handleClickLogin}
+        onClick={handleClickAuth}
         component={Link}
         to="/"
       >

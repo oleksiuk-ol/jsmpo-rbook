@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import { Box } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "redux/selectors";
+import { getUserEmail } from "redux/actions/auth";
 
 const Layout: React.FC = ({ children }) => {
   const userData = useSelector(userSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserEmail);
+  }, []);
 
   return (
     <Box display="flex" flexDirection="column" height="100vh">
