@@ -1,5 +1,6 @@
 import { Box, Button, Drawer } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { signOut } from "redux/actions/auth";
 
@@ -16,8 +17,15 @@ const Sidebar: React.FC<SidebarProps> = ({ userData }) => {
     setOpen(true);
   };
 
+  const dispatch = useDispatch();
+
   const handleClickClose = () => {
     setOpen(false);
+  };
+
+  const handleClickSignOut = () => {
+    setOpen(false);
+    dispatch(signOut);
   };
 
   const conditionalProps = userData?.email
@@ -46,12 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userData }) => {
           <Button component={Link} to={"/create"} color="inherit">
             Create
           </Button>
-          <Button
-            component={Link}
-            to={"/auth"}
-            color="inherit"
-            onClick={signOut}
-          >
+          <Button color="inherit" onClick={handleClickSignOut}>
             Log out
           </Button>
         </Box>

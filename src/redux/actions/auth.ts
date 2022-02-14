@@ -11,6 +11,10 @@ export const authSuccess = (payload: Partial<Credentials>) => ({
   payload,
 });
 
+export const logout = () => ({
+  type: AUTH.LOGOUT,
+});
+
 export const userLogin =
   ({ email, password }: Credentials) =>
   async (dispatch: any, getState: any) => {
@@ -39,7 +43,6 @@ export const getUserEmail = async (dispatch: any) => {
   } else console.log("no email");
 };
 
-export const signOut = (dispatch: any) => {
-  logOut();
-  dispatch(getUserEmail({}));
+export const signOut = async (dispatch: any) => {
+  if (await logOut()) dispatch(logout());
 };

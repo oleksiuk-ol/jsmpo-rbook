@@ -9,9 +9,9 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { userLogin } from "redux/actions/userLogin";
+
 import { UserCreds } from "services/auth";
-import { userRegistration } from "redux/actions/auth";
+import { userLogin, userRegistration } from "redux/actions/auth";
 
 const AuthForm: React.FC = () => {
   const [isNew, setIsNew] = React.useState(false);

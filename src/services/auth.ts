@@ -37,10 +37,14 @@ export const signUp = async ({ email, password }: UserCreds) => {
   }
 };
 
-export const logOut = () => {
-  signOut(auth)
-    .then(() => {})
-    .catch((error) => {});
+export const logOut = async () => {
+  try {
+    await signOut(auth);
+    return true;
+  } catch (err) {
+    console.log("SIGN_OUT ERROR:", err);
+    return false;
+  }
 };
 
 export const getUser = () => {
