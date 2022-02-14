@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userLogin } from "redux/actions/userLogin";
 import { UserCreds } from "services/auth";
+import { userRegistration } from "redux/actions/auth";
 
 const AuthForm: React.FC = () => {
   const [isNew, setIsNew] = React.useState(false);
@@ -19,8 +20,12 @@ const AuthForm: React.FC = () => {
     setIsNew(event.target.checked);
   };
 
-  const handleClickLogin = () => {
-    dispatch(userLogin(userCreds));
+  const handleClickAuth = () => {
+    if (isNew) {
+      dispatch(userRegistration(userCreds));
+    } else {
+      dispatch(userLogin(userCreds));
+    }
   };
 
   const [userCreds, setUserCreds] = useState<UserCreds>({
@@ -35,8 +40,6 @@ const AuthForm: React.FC = () => {
       [credField]: event.target.value,
     });
   };
-
-  const handleFirebaseLogin = () => {};
 
   return (
     <Box
@@ -70,7 +73,7 @@ const AuthForm: React.FC = () => {
       )}
       <Button
         variant="contained"
-        onClick={handleClickLogin}
+        onClick={handleClickAuth}
         component={Link}
         to="/"
       >

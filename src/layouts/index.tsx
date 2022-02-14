@@ -4,7 +4,7 @@ import Header from "./Header";
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { userSelector } from "redux/selectors";
-import { authSuccess, getUserEmail } from "redux/actions/auth";
+import { getUserEmail } from "redux/actions/auth";
 
 const Layout: React.FC = ({ children }) => {
   const userData = useSelector(userSelector);

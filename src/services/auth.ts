@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import "../firebase";
 
@@ -12,7 +13,6 @@ export type UserCreds = {
 };
 
 const auth = getAuth();
-const user = auth.currentUser;
 
 export const signIn = async ({ email, password }: UserCreds) => {
   try {
@@ -25,7 +25,17 @@ export const signIn = async ({ email, password }: UserCreds) => {
     return null;
   }
 };
-export const signUp = () => ({});
+export const signUp = async ({ email, password }: UserCreds) => {
+  try {
+    const {
+      user: { email: userEmail },
+    } = await createUserWithEmailAndPassword(auth, email, password);
+    return userEmail;
+  } catch (err) {
+    console.log("signIn ERROR:", err);
+    return null;
+  }
+};
 
 export const logOut = () => {
   signOut(auth)

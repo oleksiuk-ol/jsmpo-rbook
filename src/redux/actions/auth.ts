@@ -1,5 +1,4 @@
-import { useDispatch } from "react-redux";
-import { signIn, getUser, logOut } from "services/auth";
+import { signIn, signUp, getUser, logOut } from "services/auth";
 import { AUTH } from "./constants";
 
 type Credentials = {
@@ -21,6 +20,16 @@ export const userLogin =
     }
   };
 
+export const userRegistration =
+  ({ email, password }: Credentials) =>
+  async (dispatch: any, getState: any) => {
+    const userEmail = await signUp({ email, password });
+    console.log("reg");
+    if (userEmail) {
+      dispatch(authSuccess({ email: userEmail }));
+    }
+  };
+
 export const getUserEmail = async (dispatch: any) => {
   console.log("getUserEmail");
   const user: any = await getUser();
@@ -29,8 +38,6 @@ export const getUserEmail = async (dispatch: any) => {
     dispatch(authSuccess({ email: user.email }));
   } else console.log("no email");
 };
-
-// export const signUp = () => ({});
 
 export const signOut = (dispatch: any) => {
   logOut();
