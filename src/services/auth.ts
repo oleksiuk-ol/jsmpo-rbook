@@ -5,7 +5,7 @@ import {
   signOut,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import "../firebase";
+import "./firebase";
 
 export type UserCreds = {
   email: string;
