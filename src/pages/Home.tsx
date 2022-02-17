@@ -1,8 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, ListItemText, List } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRecipes } from "redux/actions/database";
 import { recipesSelector } from "redux/selectors";
+import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,16 @@ const Home: React.FC = () => {
 
   return (
     <Box>
-      <Typography>{recipesData.title}</Typography>
+      <List>
+        {Object.values(recipesData).map((field: any) => (
+          <ListItemText key={field.id}>
+            <Typography component={Link} to={`/recipe/${field.id}`}>
+              {field.title}
+            </Typography>
+          </ListItemText>
+        ))}
+        {console.log("home page: ", recipesData)}
+      </List>
     </Box>
   );
 };

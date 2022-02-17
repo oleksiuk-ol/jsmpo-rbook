@@ -1,2 +1,3 @@
 export const userSelector = (state: any) => state.user;
 export const recipesSelector = (state: any) => state.recipes;
+export const recipeSelector = (state: any) => state.recipe;
