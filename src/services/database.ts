@@ -1,4 +1,4 @@
-import { ref, get, child, set, getDatabase } from "firebase/database";
+import { ref, get, child, set, getDatabase, update } from "firebase/database";
 import { database } from "./firebase";
 
 const dbRef = ref(database);
@@ -33,6 +33,17 @@ export const createRecipe = async (obj: any) => {
   const id = `r_${Date.now()}`;
   try {
     await set(ref(db, `/recipes/${id}`), { ...obj, id });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const updateRecipe = async (obj: any) => {
+  console.log("update service");
+  const db = getDatabase();
+  const id = obj.id;
+  try {
+    await update(ref(db, `/recipes/${id}`), { ...obj, id });
   } catch (err) {
     console.log(err);
   }
