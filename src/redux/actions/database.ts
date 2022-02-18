@@ -1,4 +1,4 @@
-import { getRecipe, getRecipes } from "services/database";
+import { getRecipe, getRecipes, createRecipe } from "services/database";
 import { DB } from "./constants";
 
 const getAllSuccess = (payload: any) => ({
@@ -24,4 +24,9 @@ export const getRecipeById = (id: any) => async (dispatch: any) => {
   if (recipe) {
     dispatch(getByIdSuccess(recipe));
   }
+};
+
+export const createRecipeAction = (obj: any) => async (dispatch: any) => {
+  console.log("Create action");
+  await createRecipe(obj);
 };
