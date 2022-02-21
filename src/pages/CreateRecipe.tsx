@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography, Button } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { createRecipeAction, updateRecipeAction } from "redux/actions/database";
+import {
+  createRecipeAction,
+  getAllIngredients,
+  updateRecipeAction,
+} from "redux/actions/database";
+import { ingredientsSelector } from "redux/selectors";
 
 const CreateRecipe: React.FC = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllIngredients);
+  }, []);
+  const ingredients = useSelector(ingredientsSelector);
 
   const create = () => {
     const testObj = createTestObj();
@@ -21,11 +30,12 @@ const CreateRecipe: React.FC = () => {
   };
 
   const updateTestObj = () => {
-    return { title: "Fries", id: "r_1645192638979", desc: "Some desc1" };
+    return { title: "Fries", id: "r_1645199372746", desc: "Some desc1" };
   };
   return (
     <Box>
       <Typography> a </Typography>
+      {console.log("Page ingr:", ingredients)}
       <Button color="inherit" onClick={create}>
         Create
       </Button>

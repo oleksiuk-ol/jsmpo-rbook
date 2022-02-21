@@ -1,4 +1,12 @@
-import { ref, get, child, set, getDatabase, update } from "firebase/database";
+import {
+  ref,
+  get,
+  child,
+  set,
+  getDatabase,
+  update,
+  remove,
+} from "firebase/database";
 import { database } from "./firebase";
 
 const dbRef = ref(database);
@@ -15,11 +23,11 @@ export const getRecipes = async () => {
   }
 };
 
-export const getRecipe = async (id: string) => {
+export const getIngredients = async () => {
   try {
-    const snapshot = await get(child(dbRef, `/recipes/${id}`));
+    const snapshot = await get(child(dbRef, "/ingredients"));
     const val = snapshot.val();
-    console.log("getRecipe: ", val);
+    console.log("service ingr = ", val);
     return val;
   } catch (err) {
     console.log(err);
@@ -27,8 +35,29 @@ export const getRecipe = async (id: string) => {
   }
 };
 
+export const getRecipe = async (id: string) => {
+  try {
+    const snapshot = await get(child(dbRef, `/recipes/${id}`));
+    const val = snapshot.val();
+
+    return val;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+export const deleteRecipe = async (id: string) => {
+  try {
+    const db = getDatabase();
+    remove(ref(db, `/recipes/${id}`));
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
 export const createRecipe = async (obj: any) => {
-  console.log("create service");
   const db = getDatabase();
   const id = `r_${Date.now()}`;
   try {
@@ -39,7 +68,6 @@ export const createRecipe = async (obj: any) => {
 };
 
 export const updateRecipe = async (obj: any) => {
-  console.log("update service");
   const db = getDatabase();
   const id = obj.id;
   try {

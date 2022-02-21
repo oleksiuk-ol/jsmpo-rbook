@@ -4,6 +4,8 @@ export const AUTH = {
 };
 
 export const DB = {
-  GET_ALL: "GET_ALL",
-  GET_BY_ID: "GET_BY_ID",
+  GET_ALL_RECIPES: "GET_ALL",
+  GET_ALL_INGREDIENTS: "GET_ALL_INGREDIENTS",
+  GET_RECIPE_BY_ID: "GET_BY_ID",
+  REMOVE_BY_ID: "REMOVE_BY_ID",
 };
