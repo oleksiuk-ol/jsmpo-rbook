@@ -52,7 +52,7 @@ export const getRecipeById = (id: any) => async (dispatch: any) => {
 };
 
 export const deleteRecipeById = (id: any) => async (dispatch: any) => {
-  deleteRecipe(id);
+  await deleteRecipe(id);
   dispatch(removeByIdSuccess);
 };
 

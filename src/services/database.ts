@@ -41,7 +41,7 @@ export const getRecipe = async (id: string) => {
 
 export const deleteRecipe = async (id: string) => {
   try {
-    remove(ref(database, `/recipes/${id}`));
+    await remove(ref(database, `/recipes/${id}`));
   } catch (err) {
     console.log(err);
     return null;
