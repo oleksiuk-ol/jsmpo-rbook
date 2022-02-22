@@ -29,7 +29,6 @@ const Home: React.FC = () => {
             </Box>
           </ListItemText>
         ))}
-        {console.log("home page: ", recipesData)}
       </List>
     </Box>
   );

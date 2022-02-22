@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { userSelector } from "redux/selectors";
+import { loaderSelector, userSelector } from "redux/selectors";
 import { getUserEmail } from "redux/actions/auth";
 
 const Layout: React.FC = ({ children }) => {
   const userData = useSelector(userSelector);
+  const loading = useSelector(loaderSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +27,11 @@ const Layout: React.FC = ({ children }) => {
         {children}
       </Box>
       <Footer />
+      {loading && (
+        <Box position="absolute" top="40%" width="100%" textAlign="center">
+          <CircularProgress />
+        </Box>
+      )}
     </Box>
   );
 };
