@@ -9,3 +9,7 @@ export const DB = {
   GET_RECIPE_BY_ID: "GET_BY_ID",
   REMOVE_BY_ID: "REMOVE_BY_ID",
 };
+
+export const LOADER = {
+  SET_LOADER: "SET_LOADER",
+};

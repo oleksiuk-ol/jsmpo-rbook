@@ -21,7 +21,6 @@ const CreateRecipe: React.FC = () => {
         <ListItemText>
           <Typography>{recipeData?.title}</Typography>
         </ListItemText>
-        {console.log("recipePage: ", recipeData)}
       </List>
     </Box>
   );

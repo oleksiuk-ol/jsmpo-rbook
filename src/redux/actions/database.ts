@@ -7,6 +7,7 @@ import {
   deleteRecipe,
 } from "services/database";
 import { DB } from "./constants";
+import { setLoader } from "./loader";
 
 const getAllSuccess = (payload: any) => ({
   type: DB.GET_ALL_RECIPES,
@@ -28,27 +29,29 @@ const removeByIdSuccess = () => ({
 });
 
 export const getAllRecipes = async (dispatch: any) => {
+  dispatch(setLoader(true));
   const recipes = await getRecipes();
 
   if (recipes) {
     dispatch(getAllSuccess(recipes));
   }
+  dispatch(setLoader(false));
 };
 
 export const getAllIngredients = async (dispatch: any) => {
   const ingredients = await getIngredients();
-  console.log("action ingh = ", ingredients);
   if (ingredients) {
     dispatch(getAllIngrSuccess(ingredients));
   }
 };
 
 export const getRecipeById = (id: any) => async (dispatch: any) => {
+  dispatch(setLoader(true));
   const recipe = await getRecipe(id);
-  console.log("getRecipeById: ", recipe);
   if (recipe) {
     dispatch(getByIdSuccess(recipe));
   }
+  dispatch(setLoader(false));
 };
 
 export const deleteRecipeById = (id: any) => async (dispatch: any) => {
