@@ -7,6 +7,8 @@ import {
   TextField,
   Select,
   MenuItem,
+  OutlinedInput,
+  SelectChangeEvent,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +20,19 @@ import {
 import { ingredientsSelector, recipesSelector } from "redux/selectors";
 import { Link } from "react-router-dom";
 import { getStorage, ref } from "firebase/storage";
-import { palette } from "@mui/system";
+
+const names = [
+  "Oliver Hansen",
+  "Van Henry",
+  "April Tucker",
+  "Ralph Hubbard",
+  "Omar Alexander",
+  "Carlos Abbott",
+  "Miriam Wagner",
+  "Bradley Wilkerson",
+  "Virginia Andrews",
+  "Kelly Snyder",
+];
 
 const Home: React.FC = () => {
   const storage = getStorage();
@@ -34,7 +48,9 @@ const Home: React.FC = () => {
 
   const [filterField, setFilterField] = useState("");
   const ingredientsList = Object.values(ingredientsData);
-  const [ingredientList, setIngredientList] = React.useState([]);
+  const ingredientKeyList = Object.keys(ingredientsData);
+  const [ingredients, setIngredients] = React.useState<string[]>([]);
+  const [keys, setKeys] = React.useState<string[]>([]);
 
   const handleFilterInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -43,31 +59,45 @@ const Home: React.FC = () => {
     setFilterField(event.target.value);
   };
 
+  function getKeyByValue(value: any) {
+    return Object.keys(ingredientsData).find(
+      (key) => ingredientsData[key] === value
+    );
+  }
+
+  const handleCheckboxChange = (
+    event: SelectChangeEvent<typeof ingredients>
+  ) => {
+    console.log("Event", event.target.value);
+    const {
+      target: { value },
+    } = event;
+    setKeys(typeof value === "string" ? value.split(",") : value);
+    console.log("Key array: ", keys);
+  };
+
   return (
     <Box marginTop="50px">
       <Select
         displayEmpty
         multiple
-        value={ingredientsList}
+        value={keys}
+        input={<OutlinedInput label="Ingredient" />}
+        onChange={handleCheckboxChange}
         renderValue={(selected) => {
           if (selected.length === 0) {
-            return <em>Placeholder</em>;
+            return <em>Ingredients</em>;
           }
 
           return selected.join(", ");
         }}
       >
-        {/* {Object.values(ingredientsData).map(
-          (field: any) =>
-          <MenuItem key = {}>
-          </MenuItem>
-        )
-
-      } */}
-
         {ingredientsList.map((ingredient: any) => (
-          <MenuItem key={ingredient}>{ingredient}</MenuItem>
+          <MenuItem key={ingredient} value={getKeyByValue(ingredient)}>
+            {ingredient}
+          </MenuItem>
         ))}
+        {console.log("ingr list:", ingredientsData)}
       </Select>
       <TextField
         label="Filter"
@@ -75,8 +105,8 @@ const Home: React.FC = () => {
         name="filter"
         onChange={handleFilterInputChange}
       />
-      {console.log("List: " + ingredientsList)}
-      {console.log("Data: " + ingredientsData)}
+      {console.log("Ключи: " + ingredientKeyList)}
+      {console.log("Ключи 2: " + keys)}
       <List>
         {Object.values(recipesData).map(
           (field: any) =>
