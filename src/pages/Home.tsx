@@ -36,7 +36,6 @@ const names = [
 
 const Home: React.FC = () => {
   const storage = getStorage();
-  const imagesRef = ref(storage, "images");
   const spaceRef = ref(storage, "images/54659021.gif");
   const dispatch = useDispatch();
   useEffect(() => {
@@ -49,7 +48,6 @@ const Home: React.FC = () => {
   const [filterField, setFilterField] = useState("");
   const ingredientsList = Object.values(ingredientsData);
   const ingredientKeyList = Object.keys(ingredientsData);
-  const [ingredients, setIngredients] = React.useState<string[]>([]);
   const [keys, setKeys] = React.useState<string[]>([]);
 
   const handleFilterInputChange = (
@@ -65,9 +63,48 @@ const Home: React.FC = () => {
     );
   }
 
-  const handleCheckboxChange = (
-    event: SelectChangeEvent<typeof ingredients>
-  ) => {
+  const checkRecipeIngredients = (object: any) => {
+    console.log("Проверка ключей");
+    let a = true;
+    if (keys.length === 0) {
+      return true;
+    } else {
+      // keys.forEach((element) => {
+      //   console.log("Проверка ключей: ", element);
+      //   console.log(
+      //     "Есть ключ? ",
+      //     element,
+      //     " в ",
+      //     object.title,
+      //     "? ",
+      //     object.ingredients.hasOwnProperty(element)
+      //   );
+      //   if (!object.ingredients.hasOwnProperty(element)) {
+      //     console.log(object.title, " Не прошел проверку ", element);
+      //     a = false;
+      //     return true;
+      //   }
+      // });
+      for (let i = 0; i < keys.length; i++) {
+        console.log("Проверка ключей: ", keys[i]);
+        console.log(
+          "Есть ключ? ",
+          keys[i],
+          " в ",
+          object.title,
+          "? ",
+          object.ingredients.hasOwnProperty(keys[i])
+        );
+        if (!object.ingredients.hasOwnProperty(keys[i])) {
+          console.log(object.title, " Не прошел проверку ", keys[i]);
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+
+  const handleCheckboxChange = (event: SelectChangeEvent<typeof keys>) => {
     console.log("Event", event.target.value);
     const {
       target: { value },
@@ -106,11 +143,12 @@ const Home: React.FC = () => {
         onChange={handleFilterInputChange}
       />
       {console.log("Ключи: " + ingredientKeyList)}
-      {console.log("Ключи 2: " + keys)}
+      {console.log("Check " + keys)}
       <List>
         {Object.values(recipesData).map(
           (field: any) =>
-            field.title.includes(filterField) && (
+            field.title.includes(filterField) &&
+            checkRecipeIngredients(field) && (
               <ListItemText key={field.id}>
                 <Box
                   margin="20px"
@@ -129,6 +167,17 @@ const Home: React.FC = () => {
                     ></img>
                   </Box>
                   <Box display="flex" flexDirection="column" marginLeft="10px">
+                    {checkRecipeIngredients(field)}
+                    {console.log("Ключи рендер", keys)}
+                    {console.log("Ключи рендер первый", keys[0])}
+                    {console.log(
+                      "Проверка: ",
+                      field.title,
+                      " Результат: ",
+                      checkRecipeIngredients(field),
+                      " Ключи: ",
+                      keys
+                    )}
                     <Typography
                       component={Link}
                       to={`/recipe/${field.id}`}
