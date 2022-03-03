@@ -3,36 +3,20 @@ import {
   Typography,
   ListItemText,
   List,
-  Button,
   TextField,
   Select,
   MenuItem,
   OutlinedInput,
   SelectChangeEvent,
+  InputLabel,
+  FormControl,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteRecipeById,
-  getAllIngredients,
-  getAllRecipes,
-} from "redux/actions/database";
+import { getAllIngredients, getAllRecipes } from "redux/actions/database";
 import { ingredientsSelector, recipesSelector } from "redux/selectors";
 import { Link } from "react-router-dom";
 import { getStorage, ref } from "firebase/storage";
-
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
 
 const Home: React.FC = () => {
   const storage = getStorage();
@@ -47,7 +31,6 @@ const Home: React.FC = () => {
 
   const [filterField, setFilterField] = useState("");
   const ingredientsList = Object.values(ingredientsData);
-  const ingredientKeyList = Object.keys(ingredientsData);
   const [keys, setKeys] = React.useState<string[]>([]);
 
   const handleFilterInputChange = (
@@ -65,26 +48,9 @@ const Home: React.FC = () => {
 
   const checkRecipeIngredients = (object: any) => {
     console.log("Проверка ключей");
-    let a = true;
     if (keys.length === 0) {
       return true;
     } else {
-      // keys.forEach((element) => {
-      //   console.log("Проверка ключей: ", element);
-      //   console.log(
-      //     "Есть ключ? ",
-      //     element,
-      //     " в ",
-      //     object.title,
-      //     "? ",
-      //     object.ingredients.hasOwnProperty(element)
-      //   );
-      //   if (!object.ingredients.hasOwnProperty(element)) {
-      //     console.log(object.title, " Не прошел проверку ", element);
-      //     a = false;
-      //     return true;
-      //   }
-      // });
       for (let i = 0; i < keys.length; i++) {
         console.log("Проверка ключей: ", keys[i]);
         console.log(
@@ -115,35 +81,36 @@ const Home: React.FC = () => {
 
   return (
     <Box marginTop="50px">
-      <Select
-        displayEmpty
-        multiple
-        value={keys}
-        input={<OutlinedInput label="Ingredient" />}
-        onChange={handleCheckboxChange}
-        renderValue={(selected) => {
-          if (selected.length === 0) {
-            return <em>Ingredients</em>;
-          }
-
-          return selected.join(", ");
-        }}
+      <Box
+        display="flex"
+        justifyContent="flexStart"
+        marginLeft="20px"
+        gap="10px"
       >
-        {ingredientsList.map((ingredient: any) => (
-          <MenuItem key={ingredient} value={getKeyByValue(ingredient)}>
-            {ingredient}
-          </MenuItem>
-        ))}
-        {console.log("ingr list:", ingredientsData)}
-      </Select>
-      <TextField
-        label="Filter"
-        variant="standard"
-        name="filter"
-        onChange={handleFilterInputChange}
-      />
-      {console.log("Ключи: " + ingredientKeyList)}
-      {console.log("Check " + keys)}
+        <FormControl sx={{ width: 300 }}>
+          <InputLabel>Ingredients</InputLabel>
+          <Select
+            input={<OutlinedInput label="Name" />}
+            displayEmpty
+            multiple
+            value={keys}
+            onChange={handleCheckboxChange}
+          >
+            {ingredientsList.map((ingredient: any) => (
+              <MenuItem key={ingredient} value={getKeyByValue(ingredient)}>
+                {ingredient}
+              </MenuItem>
+            ))}
+            {console.log("ingr list:", ingredientsData)}
+          </Select>
+        </FormControl>
+        <TextField
+          label="Search.."
+          variant="outlined"
+          name="filter"
+          onChange={handleFilterInputChange}
+        />
+      </Box>
       <List>
         {Object.values(recipesData).map(
           (field: any) =>
@@ -168,8 +135,6 @@ const Home: React.FC = () => {
                   </Box>
                   <Box display="flex" flexDirection="column" marginLeft="10px">
                     {checkRecipeIngredients(field)}
-                    {console.log("Ключи рендер", keys)}
-                    {console.log("Ключи рендер первый", keys[0])}
                     {console.log(
                       "Проверка: ",
                       field.title,
