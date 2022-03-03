@@ -129,7 +129,7 @@ const Home: React.FC = () => {
                     <img
                       height="100px"
                       width="100px"
-                      src={field.img}
+                      src={field.thumbnail}
                       alt={field.title}
                     ></img>
                   </Box>
