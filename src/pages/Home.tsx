@@ -16,11 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllIngredients, getAllRecipes } from "redux/actions/database";
 import { ingredientsSelector, recipesSelector } from "redux/selectors";
 import { Link } from "react-router-dom";
-import { getStorage, ref } from "firebase/storage";
 
 const Home: React.FC = () => {
-  const storage = getStorage();
-  const spaceRef = ref(storage, "images/54659021.gif");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllRecipes);
@@ -36,7 +33,6 @@ const Home: React.FC = () => {
   const handleFilterInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log(event.target.value);
     setFilterField(event.target.value);
   };
 
@@ -47,22 +43,11 @@ const Home: React.FC = () => {
   }
 
   const checkRecipeIngredients = (object: any) => {
-    console.log("Проверка ключей");
     if (keys.length === 0) {
       return true;
     } else {
       for (let i = 0; i < keys.length; i++) {
-        console.log("Проверка ключей: ", keys[i]);
-        console.log(
-          "Есть ключ? ",
-          keys[i],
-          " в ",
-          object.title,
-          "? ",
-          object.ingredients.hasOwnProperty(keys[i])
-        );
         if (!object.ingredients.hasOwnProperty(keys[i])) {
-          console.log(object.title, " Не прошел проверку ", keys[i]);
           return false;
         }
       }
@@ -71,12 +56,10 @@ const Home: React.FC = () => {
   };
 
   const handleCheckboxChange = (event: SelectChangeEvent<typeof keys>) => {
-    console.log("Event", event.target.value);
     const {
       target: { value },
     } = event;
     setKeys(typeof value === "string" ? value.split(",") : value);
-    console.log("Key array: ", keys);
   };
 
   return (
@@ -101,7 +84,6 @@ const Home: React.FC = () => {
                 {ingredient}
               </MenuItem>
             ))}
-            {console.log("ingr list:", ingredientsData)}
           </Select>
         </FormControl>
         <TextField
@@ -135,14 +117,6 @@ const Home: React.FC = () => {
                   </Box>
                   <Box display="flex" flexDirection="column" marginLeft="10px">
                     {checkRecipeIngredients(field)}
-                    {console.log(
-                      "Проверка: ",
-                      field.title,
-                      " Результат: ",
-                      checkRecipeIngredients(field),
-                      " Ключи: ",
-                      keys
-                    )}
                     <Typography
                       component={Link}
                       to={`/recipe/${field.id}`}
@@ -155,7 +129,6 @@ const Home: React.FC = () => {
                     <Typography>{field.desc}</Typography>
                   </Box>
                 </Box>
-                {console.log(spaceRef)}
               </ListItemText>
             )
         )}
